@@ -1,7 +1,7 @@
 document.querySelector('#upload-form').addEventListener('submit', sendRequest);
 
 
-function sendRequest(e) {
+async function sendRequest(e) {
 	e.preventDefault(); // Prevents the form from submitting the default way
 
 	const fileInput = document.querySelector('#file');
@@ -28,24 +28,25 @@ function sendRequest(e) {
 	// Show the modal
 	document.getElementById('loadingModal').style.display = 'block';
   
-	// Make the request to the FastAPI server
-	fetch('http://localhost:8000/cat-vs-dog/', {
-		method: 'POST',
-		body: formData
-	})
-		.then(response => response.json())
-		.then(data => {
-			// Hide the modal
-			document.getElementById('loadingModal').style.display = 'none';
-			// Display the classification
-			classification = data['classification']
-			msg = document.getElementById('classification-msg')
-			msg.innerText = classification
-			msg.style.display = 'block'
+	try {
+    // Make the request to the FastAPI server
+    const response = await fetch('http://localhost:8000/cat-vs-dog/', {
+      method: 'POST',
+      body: formData,
+    });
 
-		})
-		.catch((error) => {
-			console.error('Error:', error);
-			document.getElementById('errorModal').style.display = 'block';
-		});
+    const data = await response.json();
+
+    // Hide the modal
+    document.getElementById('loadingModal').style.display = 'none';
+
+    // Display the classification
+    const classification = data['classification'];
+    const msg = document.getElementById('classification-msg');
+    msg.innerText = classification;
+    msg.style.display = 'block';
+  } catch (error) {
+    console.error('Error:', error);
+    document.getElementById('errorModal').style.display = 'block';
+  }
 }
