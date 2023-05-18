@@ -42,6 +42,7 @@ document.querySelector('#upload-form').addEventListener('submit', (e) => {
 
     })
     .catch((error) => {
-      console.error('Error:', error);
+			console.error('Error:', error);
+			document.getElementById('errorModal').style.display = 'block';	
     });
 });
