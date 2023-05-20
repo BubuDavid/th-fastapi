@@ -30,7 +30,7 @@ async function sendRequest(e) {
   
 	try {
     // Make the request to the FastAPI server
-    const response = await fetch('http://localhost:8000/cat-vs-dog/', {
+    const response = await fetch('http://localhost:8501/cat-vs-dog/', {
       method: 'POST',
       body: formData,
     });
