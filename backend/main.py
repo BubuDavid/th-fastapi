@@ -1,5 +1,5 @@
 from fastapi import FastAPI, UploadFile, File
-from ai_tools.classificator import classificate
+from ai_tools import classificate
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
